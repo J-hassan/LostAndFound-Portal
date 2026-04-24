@@ -35,9 +35,11 @@ A sleek, modern desktop application designed to bridge the gap between people wh
 ## 📸 Preview
 
 
-| Login Interface |
+# Login Interface 
 <img width="1738" height="901" alt="image" src="https://github.com/user-attachments/assets/2f965692-60de-4a87-9456-78ceb703477f" />
-| User Dashboard |
+
+
+# User Dashboard 
 <img width="1730" height="918" alt="image" src="https://github.com/user-attachments/assets/de88810b-2fda-4099-a824-e93a14333671" />
 
 
