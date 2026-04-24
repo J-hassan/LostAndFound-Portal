@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<VBox stylesheets="@../style/style.css" xmlns="http://javafx.com" xmlns:fx="http://javafx.com" 
+      fx:controller="com.lostfound.controllers.RegisterController" style="-fx-background-color: transparent;">
+    
+ <HBox fx:id="customTitleBar" alignment="CENTER_RIGHT" spacing="10" styleClass="glass-title-bar">
+    <Text text="Lost &amp; Found Portal" styleClass="text" style="-fx-font-weight: bold;" />
+    <Region HBox.hgrow="ALWAYS" />
+    
+    <Button text="—" onAction="#handleMinimize" styleClass="window-btn"/>
+    <Button text="✕" onAction="#handleClose" styleClass="window-btn-close"/>
+</HBox>
+
+    <!-- 2. Content Area -->
+    <StackPane VBox.vgrow="ALWAYS">
+        <!-- Background Overlay -->
+        <Pane style="-fx-background-color: rgba(0, 0, 0, 0.70);" />
+        
+        <!-- Register Box -->
+        <VBox alignment="CENTER" fx:id="RegisterVBox" spacing="15" maxWidth="400" maxHeight="550" styleClass="glass-pane">
+            <Text text="Register" fill="white" style="-fx-font-size: 32px; -fx-font-weight: bold;"/>
+            
+            <VBox spacing="5" alignment="CENTER_LEFT">
+                <Label text="Full Name" textFill="white"/>
+                <TextField fx:id="nameField" promptText="Enter your full name" />
+            </VBox>
+
+            <VBox spacing="5" alignment="CENTER_LEFT">
+                <Label text="Email" textFill="white"/>
+                <TextField fx:id="emailField" promptText="Enter your email" />
+            </VBox>
+
+            <VBox spacing="5" alignment="CENTER_LEFT">
+                <Label text="Password" textFill="white"/>
+                <PasswordField fx:id="passwordField" promptText="Create a password" />
+            </VBox>
+
+            <Button text="Sign Up" maxWidth="Infinity" styleClass="login-button" onAction="#handleRegister" defaultButton="true"/>
+            
+            <Label fx:id="errorLabel" textFill="#ff4d4d" wrapText="true" style="-fx-font-weight: bold;" />
+
+            <HBox alignment="CENTER" spacing="5">
+                <Text text="Already have an account?" fill="white"/>
+                <Button text="Login" styleClass="link-button" onAction="#goToLogin"/>
+            </HBox>
+        </VBox>
+    </StackPane>
+</VBox>

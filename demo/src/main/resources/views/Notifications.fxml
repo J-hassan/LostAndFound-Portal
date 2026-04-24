@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<VBox stylesheets="@../style/style.css" xmlns:fx="http://javafx.com/fxml/1" 
+      fx:controller="com.lostfound.controllers.NotificationController" style="-fx-background-color: transparent;">
+
+   <HBox fx:id="customTitleBar" alignment="CENTER_RIGHT" spacing="10" styleClass="glass-title-bar">
+    <Text text="Lost &amp; Found Portal" styleClass="text" style="-fx-font-weight: bold;" />
+    <Region HBox.hgrow="ALWAYS" />
+    
+    <Button text="—" onAction="#handleMinimize" styleClass="window-btn"/>
+    <Button text="✕" onAction="#handleClose" styleClass="window-btn-close"/>
+</HBox>
+
+
+    <!-- 2. Main Content Area (With Padding) -->
+    <VBox spacing="20" alignment="TOP_CENTER" VBox.vgrow="ALWAYS" styleClass="main-container">
+        <padding>
+            <Insets bottom="30" left="40" right="40" top="20" />
+        </padding>
+
+        <!-- Header Section -->
+        <HBox alignment="CENTER_LEFT" spacing="20">
+            <Button onAction="#backToDashboard" styleClass="secondary-button" text="← Back" />
+            <VBox>
+                <Text fill="white" style="-fx-font-size: 26px; -fx-font-weight: bold;" text="Potential Matches Found!" />
+                <Text fill="#bdc3c7" style="-fx-font-size: 14px;" text="Items that closely match your report" />
+            </VBox>
+            <Region HBox.hgrow="ALWAYS" />
+            <Button text="Clear All Notifications" onAction="#handleClearAll" 
+                    style="-fx-background-color: #e74c3c; -fx-text-fill: white; -fx-font-weight: bold; -fx-background-radius: 10;"/>
+        </HBox>
+
+        <!-- Table Section -->
+        <TableView fx:id="notificationTable" styleClass="glass-table" VBox.vgrow="ALWAYS">
+            <columns>
+                <TableColumn fx:id="nameCol" prefWidth="150" text="Item Name" />
+                <TableColumn fx:id="categoryCol" prefWidth="120" text="Category" />
+                <TableColumn fx:id="locationCol" prefWidth="180" text="Found/Lost Location" />
+                <TableColumn fx:id="emailCol" prefWidth="220" text="Contact User (Email)" />
+                <TableColumn fx:id="dateCol" prefWidth="120" text="Date Reported" />
+            </columns>
+            <placeholder>
+                <Label text="No matching items found." textFill="white" />
+            </placeholder>
+        </TableView>
+
+        <!-- Bottom Info -->
+        <HBox alignment="CENTER" spacing="10" styleClass="info-box">
+            <Label style="-fx-font-style: italic;" text="ℹ Reach out to the user via email to claim your item." textFill="WHITE" />
+        </HBox>
+    </VBox>
+</VBox>

@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<VBox stylesheets="@../style/style.css" xmlns="http://javafx.com" xmlns:fx="http://javafx.com" 
+      fx:controller="com.lostfound.controllers.ReportController" style="-fx-background-color: transparent;">
+  <HBox fx:id="customTitleBar" alignment="CENTER_RIGHT" spacing="10" styleClass="glass-title-bar">
+    <Text text="Lost &amp; Found Portal" styleClass="text" style="-fx-font-weight: bold;" />
+    <Region HBox.hgrow="ALWAYS" />
+    
+    <Button text="—" onAction="#handleMinimize" styleClass="window-btn"/>
+    <Button text="✕" onAction="#handleClose" styleClass="window-btn-close"/>
+</HBox>
+
+
+    <!-- 2. Content Area -->
+    <StackPane VBox.vgrow="ALWAYS">
+        <!-- Background Overlay -->
+        <Pane style="-fx-background-color: rgba(0, 0, 0, 0.70);" />
+        
+        <!-- Report Form Box -->
+        <VBox alignment="CENTER" spacing="15" maxWidth="500" maxHeight="620" styleClass="glass-pane">
+            <Text fx:id="formTitle" text="Report New Item" fill="white" style="-fx-font-size: 28px; -fx-font-weight: bold;"/>
+            
+            <VBox spacing="5" alignment="CENTER_LEFT">
+                <Label text="Item Name" textFill="white"/>
+                <TextField fx:id="nameField" promptText="e.g. iPhone 13, Wallet" />
+            </VBox>
+
+            <VBox spacing="5" alignment="CENTER_LEFT">
+                <Label text="Category" textFill="white"/>
+                <ComboBox fx:id="categoryBox" maxWidth="Infinity" promptText="Select Category" />
+            </VBox>
+
+            <VBox spacing="5" alignment="CENTER_LEFT">
+                <Label text="Location" textFill="white"/>
+                <TextField fx:id="locationField" promptText="e.g. Library, Cafeteria" />
+            </VBox>
+
+            <VBox spacing="5" alignment="CENTER_LEFT">
+                <Label text="Description" textFill="white"/>
+                <TextArea fx:id="descriptionField" prefHeight="100" promptText="Add more details..." wrapText="true" />
+            </VBox>
+
+            <Label fx:id="statusLabel" textFill="#ff4d4d" />
+
+            <HBox spacing="10" alignment="CENTER">
+                <Button text="Submit Report" fx:id="submitBtn" onAction="#handleSubmit" styleClass="login-button" prefWidth="150" defaultButton="true"/>
+                <Button text="Cancel" onAction="#handleCancel" style="-fx-background-color: transparent; -fx-text-fill: white; -fx-border-color: white; -fx-border-radius: 20;" prefWidth="100"/>
+            </HBox>
+        </VBox>
+    </StackPane>
+</VBox>

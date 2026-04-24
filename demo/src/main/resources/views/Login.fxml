@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<VBox stylesheets="@../style/style.css" xmlns="http://javafx.com" xmlns:fx="http://javafx.com" 
+      fx:controller="com.lostfound.controllers.LoginController" style="-fx-background-color: transparent;">
+   <HBox fx:id="customTitleBar" alignment="CENTER_RIGHT" spacing="10" styleClass="glass-title-bar">
+    <Text text="Lost &amp; Found Portal" styleClass="text" style="-fx-font-weight: bold;" />
+    <Region HBox.hgrow="ALWAYS" />
+    
+    <Button text="—" onAction="#handleMinimize" styleClass="window-btn"/>
+    <Button text="✕" onAction="#handleClose" styleClass="window-btn-close"/>
+</HBox>
+
+
+    <!-- 2. Main Content Area -->
+    <StackPane VBox.vgrow="ALWAYS">
+        <!-- Background Overlay -->
+        <Pane style="-fx-background-color: rgba(0, 0, 0, 0.70);" />
+        
+        <!-- Login Box -->
+        <VBox alignment="CENTER" fx:id="loginBox" spacing="20" maxWidth="400" maxHeight="450" styleClass="glass-pane">
+            <Text text="Login" fill="white" style="-fx-font-size: 32px; -fx-font-weight: bold;"/>
+            
+            <VBox spacing="5" alignment="CENTER_LEFT">
+                <Label text="Email" textFill="white"/>
+                <TextField fx:id="emailField" promptText="Enter your email" />
+            </VBox>
+
+            <VBox spacing="5" alignment="CENTER_LEFT">
+                <Label text="Password" textFill="white"/>
+                <PasswordField fx:id="passwordField" promptText="Enter your password" />
+            </VBox>
+
+            <Button text="Log in" maxWidth="Infinity" styleClass="login-button" onAction="#handleLogin" defaultButton="true"/>
+
+            <Label fx:id="errorLabel" textFill="#ff4d4d" wrapText="true" style="-fx-font-weight: bold;" />
+
+            <HBox alignment="CENTER" spacing="5">
+                <Text text="Don't have an account?" fill="white"/>
+                <Button text="Register" styleClass="link-button" onAction="#goToRegister"/>
+            </HBox>
+        </VBox>
+    </StackPane>
+</VBox>
