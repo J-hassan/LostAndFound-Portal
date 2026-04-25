@@ -52,7 +52,7 @@ If you want to contribute or build from source:
 
 ### Clone the repository:
 ```bash
-git clone [https://github.com/J-hassan/LostAndFound-Portal.git]
+git clone https://github.com/J-hassan/LostAndFound-Portal.git
 ```
 
 ### Build the project:
