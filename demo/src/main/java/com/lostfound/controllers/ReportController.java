@@ -5,7 +5,8 @@ import java.util.List;
 import com.lostfound.engine.MatchEngine;
 import com.lostfound.models.*;
 import com.lostfound.models.Item;
-import com.lostfound.storage.FileManager;
+import com.lostfound.storage.DatabaseManager;
+// import com.lostfound.storage.FileManager;
 import com.lostfound.utils.*;
 
 import javafx.animation.PauseTransition;
@@ -87,15 +88,19 @@ public class ReportController {
             } else {
                 finalItem = new FoundItem(name, category, description, location, email);
             }
-            FileManager.updateItem(Editing.getInstance().getId(), finalItem);
-            statusLabel.setText("Updating item... Please wait.");
+            boolean success = DatabaseManager.updateItem(Editing.getInstance().getId(), finalItem);
+            if (success) {
+                statusLabel.setText("Item updated successfully!");
+            } else {
+                statusLabel.setText("Failed to update item in database.");
+            }
         } else {
             if (isLostMode) {
                 finalItem = new LostItem(name, category, description, location, email);
             } else {
                 finalItem = new FoundItem(name, category, description, location, email);
             }
-            FileManager.addItem(finalItem);
+            DatabaseManager.saveItem(finalItem);
             statusLabel.setText("Reporting item... Please wait.");
         }
 
@@ -106,47 +111,49 @@ public class ReportController {
             Platform.runLater(() -> {
                 List<Item> matches = MatchEngine.findMatches(finalItem);
                 if (matches != null && !matches.isEmpty()) {
-                    List<Notification> notifications = FileManager.loadNotifications();
+                    // 1. Database se existing notifications uthaein duplicate check ke liye
+                    List<Notification> existingNotifications = DatabaseManager.getAllNotifications();
 
                     for (Item matchedItem : matches) {
                         if (!matchedItem.getReportedByEmail().equalsIgnoreCase(email)) {
 
-                            // --- DUPLICATE CHECK LOGIC ---
                             boolean currentExists = false;
                             boolean matchedExists = false;
 
-                            for (Notification n : notifications) {
-                                // Check for Current User
+                            for (Notification n : existingNotifications) {
                                 if (n.getItemId().equals(finalItem.getId()) && n.getReceiverEmail().equals(email)) {
                                     currentExists = true;
                                 }
-                                // Check for Matched User
                                 if (n.getItemId().equals(matchedItem.getId())
                                         && n.getReceiverEmail().equals(matchedItem.getReportedByEmail())) {
                                     matchedExists = true;
                                 }
                             }
 
-                            // 1. Notification for CURRENT USER
+                            // 2. Sirf tab Save karein agar Database mein pehle se na ho
                             if (!currentExists) {
-                                notifications.add(new Notification(
+                                Notification toCurrent = new Notification(
                                         finalItem.getId(), matchedItem.getName(), matchedItem.getLocation(),
                                         matchedItem.getCategory(), matchedItem.getReportedByEmail(),
-                                        matchedItem.getDate(), email));
+                                        matchedItem.getDate(), email);
+
+                                // Database mein direct save karein
+                                DatabaseManager.saveNotification(toCurrent);
                             }
 
-                            // 2. Notification for MATCHED USER
                             if (!matchedExists) {
-                                notifications.add(new Notification(
+                                Notification toMatched = new Notification(
                                         matchedItem.getId(), finalItem.getName(), finalItem.getLocation(),
                                         finalItem.getCategory(), email, finalItem.getDate(),
-                                        matchedItem.getReportedByEmail()));
+                                        matchedItem.getReportedByEmail());
+
+                                // Database mein direct save karein
+                                DatabaseManager.saveNotification(toMatched);
                             }
                         }
                     }
 
-                    FileManager.saveNotifications(notifications);
-
+                    // Popup Alert (Baqi logic same rahegi)
                     Alert alert = new Alert(Alert.AlertType.INFORMATION);
                     alert.setTitle("Matches Found!");
                     alert.setHeaderText(null);

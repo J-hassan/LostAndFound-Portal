@@ -5,6 +5,7 @@ import java.util.List;
 
 import com.lostfound.models.Item;
 import com.lostfound.models.Notification;
+import com.lostfound.storage.DatabaseManager;
 import com.lostfound.storage.FileManager;
 import com.lostfound.utils.SceneManager;
 import com.lostfound.utils.SessionManager;
@@ -104,7 +105,7 @@ public class DashboardController {
     }
 
     private void loadData() {
-        List<Item> allitems = FileManager.getAllItems();
+        List<Item> allitems = DatabaseManager.getAllItems();
         if (allitems != null) {
             ObservableList<Item> observableList = FXCollections.observableArrayList(allitems);
             itemTable.setItems(observableList);

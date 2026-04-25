@@ -10,7 +10,6 @@ import javafx.stage.StageStyle;
 
 import java.io.IOException;
 
-import com.lostfound.storage.FileManager;
 import com.lostfound.utils.SceneManager;
 
 public class App extends Application {
@@ -40,12 +39,6 @@ public class App extends Application {
         stage.setHeight(750);
         stage.centerOnScreen();
         stage.show();
-    }
-
-    @Override
-    public void stop() {
-        // save all data when application is closed
-        FileManager.saveAll();
     }
 
 }

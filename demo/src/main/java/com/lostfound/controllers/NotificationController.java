@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import com.lostfound.models.Notification;
+import com.lostfound.storage.DatabaseManager;
 import com.lostfound.storage.FileManager;
 
 import javafx.collections.FXCollections;
@@ -83,27 +84,35 @@ public class NotificationController {
 
     @FXML
     private void handleClearAll() {
-        List<Notification> allNotifications = FileManager.loadNotifications();
-
-        if (allNotifications == null || allNotifications.isEmpty()) {
+        // 1. Check karein ke table khali to nahi
+        if (notificationTable.getItems().isEmpty()) {
             Alert alert = new Alert(Alert.AlertType.INFORMATION, "No notifications to clear.");
             alert.showAndWait();
             return;
         }
 
-        Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Are you sure you want to clear all notifications?",
+        // 2. Confirmation lein
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Are you sure you want to clear all your notifications?",
                 ButtonType.YES, ButtonType.NO);
+
         alert.showAndWait().ifPresent(response -> {
             if (response == ButtonType.YES) {
                 String currentUser = SessionManager.getCurrentUserEmail();
 
-                allNotifications.removeIf(n -> n.getReceiverEmail().equals(currentUser));
+                // 3. Database se delete karein
+                boolean success = DatabaseManager.clearUserNotifications(currentUser);
 
-                FileManager.saveNotifications(allNotifications);
+                if (success) {
+                    // 4. UI Table ko khali karein
+                    notificationTable.getItems().clear();
 
-                notificationTable.setItems(FXCollections.observableArrayList());
+                    // 5. Dashboard badge ko zero karne ke liye refresh
+                    DashboardController.refreshBadge();
 
-                System.out.println("Notifications cleared for user: " + currentUser);
+                    System.out.println("All notifications cleared for: " + currentUser);
+                } else {
+                    new Alert(Alert.AlertType.ERROR, "Failed to clear notifications from database.").show();
+                }
             }
         });
     }

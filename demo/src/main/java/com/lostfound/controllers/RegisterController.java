@@ -3,6 +3,7 @@ package com.lostfound.controllers;
 import java.util.List;
 
 import com.lostfound.models.Student;
+import com.lostfound.storage.DatabaseManager;
 import com.lostfound.storage.FileManager;
 import com.lostfound.utils.SceneManager;
 import com.lostfound.utils.SessionManager;
@@ -64,28 +65,43 @@ public class RegisterController {
             return;
         }
 
-        List<Student> students = FileManager.getAllStudents();
-        if (students != null) {
-            for (Student student : students) {
-                if (student.getEmail().equals(email)) {
-                    errorLabel.setStyle("-fx-text-fillL: #ff4d4d");
-                    errorLabel.setText("Email is already registered! Please login.");
-                    return;
-                }
-            }
+        // List<Student> students = FileManager.getAllStudents();
+        // if (students != null) {
+        // for (Student student : students) {
+        // if (student.getEmail().equals(email)) {
+        // errorLabel.setStyle("-fx-text-fillL: #ff4d4d");
+        // errorLabel.setText("Email is already registered! Please login.");
+        // return;
+        // }
+        // }
+        // }
+        // errorLabel.setStyle("-fx-text-fill: #00ff00;");
+        // errorLabel.setText("Registering Student... Please wait.");
+
+        // Student newStudent = new Student(nameField.getText(), emailField.getText(),
+        // passwordField.getText());
+        // FileManager.registerStudent(newStudent);
+        // SessionManager.setCredentials(email, password);
+
+        // RegisterController's handleRegister method mein ye change karein:
+        if (DatabaseManager.registerStudent(name, email, password)) {
+            // Successful
+            SessionManager.setCredentials(email, password);
+            errorLabel.setStyle("-fx-text-fill: #00ff00;");
+            errorLabel.setText("Registration Successful! Redirecting...");
+
+            PauseTransition delay = new PauseTransition(Duration.seconds(1.5));
+            delay.setOnFinished(e -> SceneManager.switchTo("Login"));
+            delay.play();
+        } else {
+            errorLabel.setText("Registration failed! Email might already exist.");
         }
-        errorLabel.setStyle("-fx-text-fill: #00ff00;");
-        errorLabel.setText("Registering Student... Please wait.");
 
-        Student newStudent = new Student(nameField.getText(), emailField.getText(), passwordField.getText());
-        FileManager.registerStudent(newStudent);
-        SessionManager.setCredentials(email, password);
-
-        PauseTransition delay = new PauseTransition(Duration.seconds(2));
-        delay.setOnFinished(event -> {
-            SceneManager.switchTo("Login");
-        });
-        delay.play();
+        // PauseTransition delay = new PauseTransition(Duration.seconds(2));
+        // delay.setOnFinished(event -> {
+        // SceneManager.switchTo("Login");
+        // });
+        // delay.play();
     }
 
     @FXML

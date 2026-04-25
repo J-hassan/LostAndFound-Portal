@@ -2,7 +2,7 @@ package com.lostfound.controllers;
 
 import com.lostfound.models.Item;
 import com.lostfound.models.Notification;
-import com.lostfound.storage.FileManager;
+import com.lostfound.storage.DatabaseManager;
 import com.lostfound.utils.Editing;
 import com.lostfound.utils.SceneManager;
 import com.lostfound.utils.SessionManager;
@@ -114,7 +114,7 @@ public class MyItemsController {
 
     private void loadMyItems() {
         String currentUserEmail = SessionManager.getCurrentUserEmail();
-        List<Item> allItems = FileManager.getAllItems();
+        List<Item> allItems = DatabaseManager.getAllItems();
 
         List<Item> myItems = allItems.stream().filter(item -> item.getReportedByEmail().equals(currentUserEmail))
                 .collect(Collectors.toList());
@@ -129,7 +129,7 @@ public class MyItemsController {
         alert.showAndWait().ifPresent(response -> {
             if (response == ButtonType.YES) {
                 System.out.println("Deleting: " + item.getName());
-                FileManager.deleteItem(item.getId());
+                DatabaseManager.deleteItem(item.getId());
                 loadMyItems();
                 updateNotificationBadge();
             }
@@ -138,7 +138,7 @@ public class MyItemsController {
 
     private void updateNotificationBadge() {
         String currentUser = SessionManager.getCurrentUserEmail();
-        List<Notification> allNotifications = FileManager.loadNotifications();
+        List<Notification> allNotifications = DatabaseManager.getAllNotifications();
 
         // Sirf current user ki notifications count karein
         long count = allNotifications.stream()

@@ -23,3 +23,4 @@ com\lostfound\App.class
 com\lostfound\controllers\RegisterController.class
 com\lostfound\utils\SceneManager.class
 com\lostfound\models\LostItem.class
+com\lostfound\storage\DatabaseManager.class

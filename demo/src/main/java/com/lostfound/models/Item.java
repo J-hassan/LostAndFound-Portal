@@ -60,4 +60,8 @@ public abstract class Item implements Serializable {
 
     public abstract String getType();
 
+    public void setDate(LocalDate localDate) {
+        this.date = localDate;
+    }
+
 }

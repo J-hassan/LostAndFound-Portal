@@ -3,6 +3,7 @@ package com.lostfound.controllers;
 import java.util.List;
 
 import com.lostfound.models.Student;
+import com.lostfound.storage.DatabaseManager;
 import com.lostfound.storage.FileManager;
 import com.lostfound.utils.SceneManager;
 import com.lostfound.utils.SessionManager;
@@ -87,34 +88,53 @@ public class LoginController {
             return;
         }
 
-        List<Student> students = FileManager.getAllStudents();
-        boolean found = false;
-        if (students != null) {
-            for (Student student : students) {
-                if (student.getEmail().equals(email) && student.getPassword().equals(password)) {
-                    // creating a session for the logged in user
-                    SessionManager.setCurrentUserEmail(student.getEmail());
-                    SessionManager.setCurrentUserName(student.getName());
-                    found = true;
-                    break;
-                }
-            }
-        }
+        Student loggedInStudent = DatabaseManager.loginStudent(email, password);
 
-        if (found) {
+        if (loggedInStudent != null) {
+            // Session set karein
+            SessionManager.setCurrentUserEmail(loggedInStudent.getEmail());
+            SessionManager.setCurrentUserName(loggedInStudent.getName());
+
             errorLabel.setStyle("-fx-text-fill: #00ff00;");
-            errorLabel.setText("Logging in... Please wait.");
+            errorLabel.setText("Login Successful! Redirecting...");
 
-            PauseTransition delay = new PauseTransition(Duration.seconds(2));
-            delay.setOnFinished((e) -> {
-                SceneManager.switchTo("Dashboard");
-            });
-
+            PauseTransition delay = new PauseTransition(Duration.seconds(1.5));
+            delay.setOnFinished(e -> SceneManager.switchTo("Dashboard"));
             delay.play();
         } else {
-            errorLabel.setStyle("-fx-text-fillL: #ff4d4d");
-            errorLabel.setText("Invalid Email or Password. Please try again!");
+            errorLabel.setStyle("-fx-text-fill: #ff4d4d;");
+            errorLabel.setText("Invalid Email or Password!");
         }
+
+        // List<Student> students = FileManager.getAllStudents();
+        // boolean found = false;
+        // if (students != null) {
+        // for (Student student : students) {
+        // if (student.getEmail().equals(email) &&
+        // student.getPassword().equals(password)) {
+        // // creating a session for the logged in user
+        // SessionManager.setCurrentUserEmail(student.getEmail());
+        // SessionManager.setCurrentUserName(student.getName());
+        // found = true;
+        // break;
+        // }
+        // }
+        // }
+
+        // if (found) {
+        // errorLabel.setStyle("-fx-text-fill: #00ff00;");
+        // errorLabel.setText("Logging in... Please wait.");
+
+        // PauseTransition delay = new PauseTransition(Duration.seconds(2));
+        // delay.setOnFinished((e) -> {
+        // SceneManager.switchTo("Dashboard");
+        // });
+
+        // delay.play();
+        // } else {
+        // errorLabel.setStyle("-fx-text-fillL: #ff4d4d");
+        // errorLabel.setText("Invalid Email or Password. Please try again!");
+        // }
     }
 
     @FXML
