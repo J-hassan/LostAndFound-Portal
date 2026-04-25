@@ -1,34 +1,39 @@
-# 🔍 Lost & Found Management System
+# 🔍 Lost & Found Management System (Cloud Edition)
 
-A sleek, modern desktop application designed to bridge the gap between people who have lost items and those who have found them. Featuring a **Smart Matching Engine**, this app automatically connects users based on item descriptions, categories, and locations. 
+A professional JavaFX desktop application now upgraded with **Cloud Sync**. This system allows users to report and match lost/found items across a centralized network using a remote MySQL database.
+
+---
+
+## 🆕 What's New in v1.1.0 (Cloud Migration)
+*   **Centralized Database:** Migrated from local `.dat` files to a hosted **MySQL (Clever Cloud)** database.
+*   **Real-time Global Sync:** Items reported by one user are instantly visible to all users worldwide.
+*   **Persistent User Auth:** Secure cloud-based login and registration system.
+*   **Cloud Notifications:** Automated matching engine now saves potential matches directly to the cloud.
 
 ---
 
 ## ✨ Key Features
-
-*   **Smart Matching Engine**: Uses a weighted scoring system to match items based on Name, Category, Location, and Date.
-*   **Persistent Notifications**: Real-time notification badges alert users when a potential match is found.
-*   **Glassmorphism UI**: A modern, semi-transparent user interface styled with JavaFX and CSS.
-*   **Custom Window Controls**: A custom-built title bar for a seamless, professional look.
-*   **Data Persistence**: Securely stores user data, items, and notifications using Java Serialization in the user's home directory.
-*   **One-Click Installer**: Fully packaged `.exe` for Windows—no need to install Java or JavaFX separately.
+*   **Smart Matching Engine:** Scores items based on name, category, and location to find the best matches.
+*   **Real-time UI:** Built with **JavaFX** and **CSS** featuring a modern Glassmorphism design.
+*   **Async Loading:** Includes background tasks and loading indicators for a smooth cloud experience.
+*   **One-Click Installer:** Self-contained `.exe` that includes the Java Runtime (JRE).
 
 ---
 
-## 🛠️ Built With
-
-*   **Java 17+** - Core application logic.
-*   **JavaFX 13** - Rich desktop UI components.
-*   **Maven** - Dependency and build management.
-*   **Scene Builder** - FXML layout design.
+## 🛠️ Tech Stack
+*   **Language:** Java 17+
+*   **UI Framework:** JavaFX 13
+*   **Database:** MySQL (Cloud Hosted)
+*   **Build Tool:** Maven
+*   **Distribution:** jpackage (Native Windows Installer)
 
 ---
 
-## 🚀 Installation & Setup
-
-1.  **Download**: Navigate to the [Releases](https://github.com/J-hassan/LostAndFound-Portal/releases/tag/v1.0.0) section and download the latest `LostAndFound.exe` installer.
-2.  **Install**: Run the installer and follow the on-screen instructions.
-3.  **Security Note**: Since this is an unsigned developer build, Windows SmartScreen may show a warning. Click **"More Info"** and then **"Run Anyway"** to proceed.
+## 🚀 Installation
+1.  Go to the [Releases](https://github.com/J-hassan/LostAndFound-Portal/releases/tag/v1.1.0) section.
+2.  Download the latest **`LostAndFound_v1.1.0.exe`**.
+3.  Install and run. (Note: Internet connection is required for cloud features).
+4.  *Security Tip:* If Windows SmartScreen appears, click **"More Info"** -> **"Run Anyway"**.
 
 ---
 
@@ -68,13 +73,13 @@ java -jar target/demo-1.0-SNAPSHOT.jar
 ---
 
 ## 👤 Author
-
-**Muhammad Hassan**  
-*   GitHub: [@J-hassan](https://github.com)  
-*   Role: Lead Developer
+**Muhammad Hassan**
+*   GitHub: [@J-hassan](https://github.com)
+*   Role: Lead Java Developer
 
 ---
 
-## 📄 License
+## 📜 License
+Distributed under the MIT License. See `LICENSE` for more information.
 
 This project is licensed under the **MIT License**.
