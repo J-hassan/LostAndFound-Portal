@@ -26,7 +26,7 @@ A sleek, modern desktop application designed to bridge the gap between people wh
 
 ## 🚀 Installation & Setup
 
-1.  **Download**: Navigate to the [Releases](https://github.com) section and download the latest `LostAndFound.exe` installer.
+1.  **Download**: Navigate to the [Releases](https://github.com/J-hassan/LostAndFound-Portal/releases/tag/v1.0.0) section and download the latest `LostAndFound.exe` installer.
 2.  **Install**: Run the installer and follow the on-screen instructions.
 3.  **Security Note**: Since this is an unsigned developer build, Windows SmartScreen may show a warning. Click **"More Info"** and then **"Run Anyway"** to proceed.
 
@@ -52,7 +52,7 @@ If you want to contribute or build from source:
 
 ### Clone the repository:
 ```bash
-git clone https://github.com
+git clone [https://github.com/J-hassan/LostAndFound-Portal.git]
 ```
 
 ### Build the project:
