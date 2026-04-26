@@ -23,7 +23,16 @@
 hs_err_pid*
 replay_pid*
 
+<<<<<<< Updated upstream
 # src/main/resources/config.properties
 
 # Maven build output
 demo/target/
+=======
+src/main/resources/config.properties
+
+/demo/target/
+/demo/installer-output/
+*.class
+*.jar
+>>>>>>> Stashed changes

@@ -6,7 +6,7 @@ import java.util.stream.Collectors;
 
 import com.lostfound.models.Notification;
 import com.lostfound.storage.DatabaseManager;
-import com.lostfound.storage.FileManager;
+// import com.lostfound.storage.FileManager;
 
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
@@ -39,7 +39,7 @@ public class NotificationController {
         dateCol.setCellValueFactory(new PropertyValueFactory<>("date"));
         categoryCol.setCellValueFactory(new PropertyValueFactory<>("category"));
 
-        List<Notification> notifications = FileManager.loadNotifications();
+        List<Notification> notifications = DatabaseManager.getAllNotifications();
         List<Notification> userNotifications = notifications.stream()
                 .filter(n -> n.getReceiverEmail().equals(SessionManager.getCurrentUserEmail()))
                 .collect(Collectors.toList());

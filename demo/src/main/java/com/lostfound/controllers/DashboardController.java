@@ -6,7 +6,7 @@ import java.util.List;
 import com.lostfound.models.Item;
 import com.lostfound.models.Notification;
 import com.lostfound.storage.DatabaseManager;
-import com.lostfound.storage.FileManager;
+// import com.lostfound.storage.FileManager;
 import com.lostfound.utils.SceneManager;
 import com.lostfound.utils.SessionManager;
 
@@ -150,7 +150,7 @@ public class DashboardController {
 
     private void updateNotificationBadge() {
         String currentUser = SessionManager.getCurrentUserEmail();
-        List<Notification> allNotifications = FileManager.loadNotifications();
+        List<Notification> allNotifications = DatabaseManager.getAllNotifications();
 
         // Sirf current user ki notifications count karein
         long count = allNotifications.stream()
