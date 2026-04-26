@@ -5,12 +5,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.lostfound.models.Item;
-import com.lostfound.storage.FileManager;
+import com.lostfound.storage.DatabaseManager;
 
 public class MatchEngine {
 
     public static List<Item> findMatches(Item reportedItem) {
-        List<Item> allItems = FileManager.getAllItems();
+        List<Item> allItems = DatabaseManager.getAllItems();
         List<Item> matches = new ArrayList<>();
 
         String reportedItemLoc = reportedItem.getLocation().toLowerCase();
